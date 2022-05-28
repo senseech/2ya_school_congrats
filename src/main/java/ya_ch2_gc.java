@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Scanner;
+import java.util.*;
 
 public class ya_ch2_gc {
 
@@ -33,10 +30,25 @@ public class ya_ch2_gc {
 //        НИКАКАЯ СОРТИИРОВКА
         ArrayList sorted_workers = new ArrayList<>();
 
-        for (int i = 0; i < number_worker; i++){
-            arrayList_worker.get(i).getType_job();
-        }
-
+//        testList.sort(Comparator.comparing(ClassName::getFieldName).reversed());
+        arrayList_worker.sort(Comparator.comparing(Type_worker::getCount_task).reversed().thenComparing(Comparator.comparing(Type_worker::getCount_mistake)));
+//        for (int i = 0; i < number_worker; i++){
+//            arrayList_worker.get(i).getType_job();
+//        }
+        arrayList_job.forEach(j ->{
+            final int[] i = {0};
+            arrayList_worker.forEach(w -> {
+                if (j.getName_job().equals(w.getType_job())) {
+                    while (i[0] < j.getCount_worker()) {
+                        sorted_workers.add(w.getName_worker());
+                        i[0]++;
+                    }
+                }
+            });
+        });
+        Collections.sort(sorted_workers);
+        sorted_workers.forEach(System.out::println);
+//        arrayList_worker.forEach(x-> System.out.println(x.getName_worker() +" "+ x.getCount_task() +" "+ x.getCount_mistake()));
 //        arrayList_job.sort();
 //        Collections.sort(arrayList_job(0).);
 //        arrayList_job.get(0);
